@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 1.将字符串变为较大的数字（使用霍纳算法）
+    // 2.将大数压缩再数组范围内（取余操作）
+    function hashFunction(str,size) {
+        var hashCode=0;
+        for (let i = 0; i < str.length; i++) {
+            hashCode=37*hashCode+str.charCodeAt(i);            
+            console.log(hashCode);
+        }
+        var index=hashCode%size;
+        return index;
+    }
+    console.log(hashFunction('abc',7));
+</script>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="Stack.js"></script>
+<script>
+
+    // 十进制转二进制
+    function dec2bin(num) {
+        var target=new Stack();
+        while (num>0) {
+            target.push(num%2);
+            num=Math.floor(num/2);
+        }
+
+        // 弹栈
+        var str='';
+        while (!target.isEmpty()) {
+            str+=target.pop()+' ';
+        }
+        return str;
+    }
+    console.log(dec2bin(1000));
+</script>
+
+</html>

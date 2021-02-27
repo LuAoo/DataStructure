@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单向列表</title>
+</head>
+
+<body>
+</body>
+<script>
+    // 封装链表类
+    function LinkedList() {
+        // 内部的类：节点类
+        function Node(data) {
+            this.data = data;
+            this.next = null;
+        }
+        // 属性
+        this.head = null;
+        this.length = 0;
+
+        /*  append(element)：向链表尾部添加一个新的项 */
+        LinkedList.prototype.append = function (data) {
+            // 1.创建新的节点
+            var newNode = new Node(data);
+            // 2.判断是否添加的是第一个节点
+            if (this.length == 0) {
+                // 2.1 是第一个节点
+                this.head = newNode;
+            } else {
+                // 2.2不是第一个节点
+                var current = this.head;
+                // 2.2.1 找到最后一个节点
+                while (current.next) {
+                    current = current.next
+                }
+                // 2.2.2 将最后一个节点的next指向新的节点
+                current.next = newNode;
+
+            }
+            this.length += 1;
+        }
+        /*   tostring():输出 */
+        LinkedList.prototype.tostring = function () {
+            // 定义游标
+            var currrent = this.head;
+            var stringsub = "";
+            // 循环获取   
+            while (currrent) {
+                stringsub += currrent.data + " ";
+                currrent = currrent.next;
+            }
+            return stringsub;
+        }
+
+        /* insert()：插入 */
+        LinkedList.prototype.insert = function (position, data) {
+            // 1.对position进行越界判断
+            if (position < 0 && position > this.length) {
+                return false
+            }
+            // 2.根据data创建newNode
+            var newNode = new Node(data);
+            // 3.判断插入的位置是否为第一个
+            if (position == 0) {
+                // 3.1如图（插在第一位）
+                newNode.next = this.head
+                this.head = newNode;
+            } else {
+                // 3.2如图（插在其他位）
+                var index = 0;
+                var current = this.head;
+                var previous = null;
+                // 将index停在position节点处
+                while (index < position) {
+                    previous = current;
+                    current = current.next;
+                    index += 1;
+                }
+                // 懂？
+                newNode.next = current;
+                previous.next = newNode;
+            }
+            this.length += 1;
+            return true;
+        }
+        /* get(position):获取对应位置的元素 */
+        LinkedList.prototype.get = function (position) {
+            // 越界判断
+            if (position < 0 || position >= this.length) {
+                return null;
+            }
+            // 获取想应data
+            var index = 0;
+            var current = this.head;
+            while (index < position) {
+                current = current.next;
+                index++;
+            }
+            return current.data;
+        }
+
+
+
+        /* indexOf(element):返回元素在列表上的索引。如果链表上没有该元素则返回-1 */
+        LinkedList.prototype.indexOf = function (element) {
+            var index = 0;
+            var current = this.head;
+            console.log(this.length);
+            while (index < this.length) {//或者while(current)
+                if (current.data == element) {
+                    return index;
+                }
+                current = current.next;
+                index += 1
+            }
+            return -1;
+        }
+
+        /* undata（position，element）：修改某个元素的位置 */
+        LinkedList.prototype.updata = function (position, element) {
+            //对position进行越界判断
+            if (position < 0 || position >= this.length) {
+                return false;
+            }
+            var current = this.head;
+            var index = 0;
+            //查找正确的节点
+            while (index < position) {
+                current = current.next;
+                index += 1;
+            }
+            //将position位置的node的data修改为newData
+            current.data = element;
+            return true;
+        }
+
+
+
+        /*removeAt（position）：从链表的特定位置移除一项（根据位置） */
+        LinkedList.prototype.removeAt = function (position) {
+            //1.对position进行越界判断
+            if (position < 0 || position >= this.length) {
+                return false;
+            }
+            // 2.判断删除节点类型
+            if (position == 0) {
+                this.head = this.head.next;
+            } else {
+                var current = this.head;
+                var index = 0;
+                var previous = null;
+                while (index < position) {
+                    previous = current;
+                    current = current.next;
+                    index++;
+                }
+                //3. 让前一个的next指向current的next
+                previous.next = current.next;
+                current.next = null;
+            }
+            this.length -= 1;
+            return true;
+        }
+
+        /* remove(element);从链表移除一项（根据元素） */
+        LinkedList.prototype.remove = function (element) {
+            var index = 0;
+            var current = this.head;
+            var previous = null;
+            while (current) {
+                if (current.data == element) {
+                    if (index == 0) {
+                        this.head = this.head.next;
+                    } else {
+                        previous.next = current.next;
+                    }
+                    this.length -= 1;
+                    return true;
+                }
+                previous = current;
+                current = current.next;
+                index += 1;
+            }
+            return -1;
+        }
+
+        /* size():长度 */
+        LinkedList.prototype.size = function () {
+            return this.length;
+        }
+
+        /* isEmpty():长度 */
+        LinkedList.prototype.isEmpty = function () {
+            return this.length==0;
+        }
+
+    }
+    var list = new LinkedList();
+    list.append('abc');
+    list.append('cbb');
+    list.append('axx');
+    console.log(list.tostring());
+    console.log(list.remove(' sss'));
+    console.log(list.tostring());
+    console.log(list.size());
+    console.log(list.isEmpty());
+    console.log(list);
+</script>
+</html>

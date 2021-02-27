@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script src="Queue.js"></script>
+<script>
+    function passGame(nameList,num) {
+        // 创建一个队列结构
+        var list=new Queue();
+        // 将所有人加入队列中
+        for (let index = 0; index < nameList.length; index++) {
+            list.enqueue(nameList[index])
+        }
+        
+        while (list.size()!=1) {
+            // 每次循环遍历nun，每遍历一个人将其从对头移至对位
+            for (let i = 0; i <  num-1; i++) {
+                list.enqueue(list.dequeue());
+            }
+            // 循环结束后将对头元素（即目标值）删除
+            list.dequeue();
+        }
+        console.log(list.size());
+        // 循环结束只剩下一个人就是target
+        return list.front();
+    }
+    var names=["Lily","lucy","tom","Lilei","why"];
+    
+    console.log(passGame(names,3));
+</script>
+</html>
