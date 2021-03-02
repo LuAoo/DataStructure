@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function BinarySerachTree() {
+        // 结点类
+        function Node(key) {
+            this.key = key;
+            this.left = null;
+            this.right = null;
+        }
+        // 属性
+        this.root = null;
+        // 方法
+        /* 插入操作的封装 */
+        BinarySerachTree.prototype.insert = function (key) {
+            // 1.创建key结点
+            var newnode = new Node(key);
+            // 2.判断根节点是否有值
+            if (this.root == null) {
+                // 2.1 若无值则将结点赋给根节点
+                this.root = newnode
+            } else {
+                // 2.2 若有值则递归调用以此判断插入或继续递归
+                this.insertNode(this.root, newnode)
+            }
+        }
+        // 插入函数的递归函数
+        BinarySerachTree.prototype.insertNode = function (node, newnode) {
+            /* 
+            判断路径方向
+            判断是否有值，若有值，则继续递归，若无值，则赋值
+            */
+            if (newnode.key < node.key) {
+                // 如果新节点大于根节点，则向右走
+                if (node.left == null) {
+                    node.left = newnode
+                } else {
+                    this.insertNode(node.left, newnode)
+                }
+            } else {
+                // 如果新节点大于根节点，则向右走
+                if (node.right == null) {
+                    node.right = newnode
+                } else {
+                    this.insertNode(node.right, newnode)
+                }
+            }
+        }
+
+
+
+        /* 遍历方式 */
+    }
+
+
+
+    var bst = new BinarySerachTree();
+    bst.insert(11)
+    bst.insert(7)
+    bst.insert(15)
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(9)
+    bst.insert(8)
+    bst.insert(10)
+    bst.insert(13)
+    bst.insert(12)
+    bst.insert(14)
+    bst.insert(20)
+    bst.insert(18)
+    bst.insert(25)
+    console.log(bst);
+</script>
+
+</html>
